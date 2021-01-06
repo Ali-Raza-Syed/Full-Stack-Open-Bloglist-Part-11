@@ -17,7 +17,7 @@ const mongoUrl = config.MONGODB_URI
 const establishConnection = async () => {
   try{
     await mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-    logger.info('MongoDB connectedd')
+    logger.info('MongoDB connecte')
   }
   catch{
     logger.error('MongoDB connection failed')
