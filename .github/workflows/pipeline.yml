@@ -25,13 +25,19 @@ jobs:
         run: npm run eslint
 
       - name: test
-        run: npm run test 
+        env:
+          PORT: ${{secrets.PORT}}
+          TEST_MONGODB_URI: ${{TEST_MONGODB_URI}}
+        run: PORT=$PORT TEST_MONGODB_URI=$TEST_MONGODB_URI npm run test 
 
       - name: e2e tests
+          env:
+          PORT: ${{secrets.PORT}}
+          TEST_MONGODB_URI: ${{TEST_MONGODB_URI}}
         uses: cypress-io/github-action@v2
         with:
-          command: npm run test:e2e
-          start: npm run start
+          command: PORT=$PORT TEST_MONGODB_URI=$TEST_MONGODB_URI npm run test:e2e
+          start: PORT=$PORT TEST_MONGODB_URI=$TEST_MONGODB_URI npm run start
 
       - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
         env:
