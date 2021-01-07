@@ -21,14 +21,14 @@ describe('BlogForm', () => {
     const url = component.container.querySelector('#url')
     const title = component.container.querySelector('#title')
 
-    fireEvent.change(author, { 
-      target: { value: 'author1' } 
+    fireEvent.change(author, {
+      target: { value: 'author1' }
     })
-    fireEvent.change(url, { 
-      target: { value: 'url1' } 
+    fireEvent.change(url, {
+      target: { value: 'url1' }
     })
-    fireEvent.change(title, { 
-      target: { value: 'title1' } 
+    fireEvent.change(title, {
+      target: { value: 'title1' }
     })
 
     fireEvent.submit(form)

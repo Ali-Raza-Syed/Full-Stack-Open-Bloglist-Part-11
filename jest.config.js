@@ -1,3 +1,5 @@
 module.exports = {
-  testEnvironment: 'node'
+    testEnvironment: 'node',
+    testPathIgnorePatterns: ['<rootDir>/frontend/', '<rootDir>/node_modules/'],
+    testTimeout: 30000
 }

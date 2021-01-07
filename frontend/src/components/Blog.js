@@ -8,7 +8,7 @@ const Blog = ({ blog, onClickLike, onClickDelete, user }) => {
   }
 
   const buttonText = showDetails ? 'hide' : 'show'
-  const showRemoveButton = user.username === blog.user.username 
+  const showRemoveButton = user.username === blog.user.username
   const blogStyle = {
     paddingTop: 10,
     paddingLeft: 2,
@@ -26,12 +26,12 @@ const Blog = ({ blog, onClickLike, onClickDelete, user }) => {
       <div style={{ display: showDetails ? '' : 'none' }} className = 'details'>
         <div> url: {blog.url} </div>
         <div> user: {blog.user.name} </div>
-        <div id = 'like-div'> 
-          likes: {blog.likes} 
-          <Button text = {'like'} onClick = {() => onClickLike({...blog, 'likes': blog.likes + 1})}/>
-          <div id = 'del-div' style = {{display: showRemoveButton ? '' : 'none'}}>
-            <Button text = {'delete'} onClick = {() => onClickDelete({...blog})}/>    
-          </div>  
+        <div id = 'like-div'>
+          likes: {blog.likes}
+          <Button text = {'like'} onClick = {() => onClickLike({ ...blog, 'likes': blog.likes + 1 })}/>
+          <div id = 'del-div' style = {{ display: showRemoveButton ? '' : 'none' }}>
+            <Button text = {'delete'} onClick = {() => onClickDelete({ ...blog })}/>
+          </div>
         </div>
       </div>
     </div>

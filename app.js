@@ -15,13 +15,13 @@ mongoose.set('useFindAndModify', false)
 
 const mongoUrl = config.MONGODB_URI
 const establishConnection = async () => {
-  try{
-    await mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-    logger.info('MongoDB connecte')
-  }
-  catch{
-    logger.error('MongoDB connection failed')
-  }
+    try{
+        await mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
+        logger.info('MongoDB connecte')
+    }
+    catch{
+        logger.error('MongoDB connection failed')
+    }
 }
 establishConnection()
 
@@ -34,16 +34,16 @@ app.use('/api/users', usersRouter)
 app.use('/api/login', loginRouter)
 
 app.get('/health', (req, res) => {
-  res.send('ok')
+    res.send('ok')
 })
 
 app.get('/version', (req, res) => {
-  res.send('2')
+    res.send('2')
 })
 
 if (process.env.NODE_ENV === 'test') {
-  const testingRouter = require('./contollers/testing')
-  app.use('/api/testing', testingRouter)
+    const testingRouter = require('./contollers/testing')
+    app.use('/api/testing', testingRouter)
 }
 
 app.use(middleware.errorHandler)

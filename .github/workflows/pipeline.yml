@@ -21,19 +21,17 @@ jobs:
       - name: npm install 
         run: npm install  
 
-      # - name: lint
-      #   run: npm run eslint
+      - name: lint
+        run: npm run eslint
 
-      # - name: test
-      #   run: npm run test 
+      - name: test
+        run: npm run test 
 
-      # - name: e2e tests
-      #   uses: cypress-io/github-action@v2
-      #   with:
-      #     command: npm run test:e2e
-      #     start: npm run start-prod
-      #     wait-on: 'http://localhost:5000'
-          # wait-on-timeout: 240
+      - name: e2e tests
+        uses: cypress-io/github-action@v2
+        with:
+          command: npm run test:e2e
+          start: npm run start
 
       - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
         env:
