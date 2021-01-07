@@ -15,6 +15,7 @@ describe('BlogForm', () => {
     )
   })
 
+  //eslint-disable-next-line jest/no-focused-tests
   test.only('createBlog event handler called with correct content', () => {
     const form = component.container.querySelector('form')
     const author = component.container.querySelector('#author')

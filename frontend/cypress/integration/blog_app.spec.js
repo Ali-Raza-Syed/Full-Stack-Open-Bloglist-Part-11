@@ -78,6 +78,7 @@ describe('Blog app', function() {
       cy.createBlog({ 'title': 'title1', 'author': 'author1', 'url': 'url1', 'likes': 1 })
       cy.createBlog({ 'title': 'title3', 'author': 'author3', 'url': 'url3', 'likes': 3 })
       cy.createBlog({ 'title': 'title4', 'author': 'author4', 'url': 'url4', 'likes': 4 })
+      //eslint-disable-next-line jest/valid-expect-in-promise
       cy.get('.blog').then(blogs => {
         cy.wrap(blogs[0]).contains('likes: 4')
         cy.wrap(blogs[1]).contains('likes: 3')
