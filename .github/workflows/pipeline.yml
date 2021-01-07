@@ -27,14 +27,14 @@ jobs:
       - name: test
         env:
           PORT: ${{secrets.PORT}}
-          TEST_MONGODB_URI: ${{TEST_MONGODB_URI}}
+          TEST_MONGODB_URI: ${{secrets.TEST_MONGODB_URI}}
           SECRET: ${{SECRET}}
         run: PORT=$PORT TEST_MONGODB_URI=$TEST_MONGODB_URI npm run test 
 
       - name: e2e tests
         env:
           PORT: ${{secrets.PORT}}
-          TEST_MONGODB_URI: ${{TEST_MONGODB_URI}}
+          TEST_MONGODB_URI: ${{secrets.TEST_MONGODB_URI}}
           SECRET: ${{SECRET}}
         uses: cypress-io/github-action@v2
         with:
