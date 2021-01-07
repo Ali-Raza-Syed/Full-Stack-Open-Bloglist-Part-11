@@ -38,7 +38,7 @@ app.get('/health', (req, res) => {
 })
 
 app.get('/version', (req, res) => {
-    res.send('2')
+    res.send('3')
 })
 
 if (process.env.NODE_ENV === 'test') {
