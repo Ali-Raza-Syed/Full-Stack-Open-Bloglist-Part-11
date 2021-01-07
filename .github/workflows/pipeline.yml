@@ -1,0 +1,71 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches: [master]
+    types: [opened, synchronize]
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '12.x'
+
+      - name: npm install 
+        run: npm install  
+
+      # - name: lint
+      #   run: npm run eslint
+
+      # - name: test
+      #   run: npm run test 
+
+      # - name: e2e tests
+      #   uses: cypress-io/github-action@v2
+      #   with:
+      #     command: npm run test:e2e
+      #     start: npm run start-prod
+      #     wait-on: 'http://localhost:5000'
+          # wait-on-timeout: 240
+
+      - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
+        env:
+          SKIP: ${{ contains( join( github.event.commits.*.message, ',' ), '#skip' ) }}
+        if: ${{ github.event_name == 'push' && env.SKIP == 'false' }}
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "bloglist-last-part-ali-raza" #Must be unique in Heroku
+          heroku_email: "saliraza486@gmail.com"
+          healthcheck: "https://bloglist-last-part-ali-raza.herokuapp.com/health"
+          checkstring: "ok"
+          rollbackonhealthcheckfailed: true
+
+      - uses: actions/checkout@v2
+        if: ${{ github.event_name == 'push' }}
+
+      - name: Bump version and push tag (master merge)
+        if: ${{ github.event_name == 'push' && env.SKIP == 'false' }}
+        uses: anothrNick/github-tag-action@1.33.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
+          SKIP: ${{ contains( join( github.event.commits.*.message, ',' ), '#skip' ) }}
+
+      - uses: 8398a7/action-slack@v3
+        if: ${{ github.event_name == 'push' && ( success() || failure() ) }}
+        with:
+          status: ${{ job.status }}
+          fields: message,commit,action,eventName,ref,workflow,job,took # selectable (default: repo,message)        
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+
+
+
+
