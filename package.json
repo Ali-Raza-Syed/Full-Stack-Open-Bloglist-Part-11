@@ -14,7 +14,7 @@
     "dev": "cross-env NODE_ENV=development nodemon index.js",
     "start:test": "cross-env NODE_ENV=test node index.js",
     "build": "cd frontend/ && npm install && npm run build",
-    "eslint": "eslint . && cd frontend && npm install && npm run eslint"
+    "eslint": "eslint . && cd frontend && npm run eslint"
   },
   "author": "Ali Raza Syed",
   "license": "MIT",

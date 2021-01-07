@@ -18,8 +18,8 @@ jobs:
         with:
           node-version: '12.x'
 
-      - name: npm install 
-        run: npm install  
+      - name: npm install backend and frontend
+        run: npm install && cd frontend && npm install
 
       - name: lint
         run: npm run eslint
