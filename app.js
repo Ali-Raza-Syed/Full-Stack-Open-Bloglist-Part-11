@@ -14,6 +14,7 @@ mongoose.set('useCreateIndex', true)
 mongoose.set('useFindAndModify', false)
 
 const mongoUrl = config.MONGODB_URI
+console.log('MONGODB_URI', mongoUrl)
 const establishConnection = async () => {
     try{
         await mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
