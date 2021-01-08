@@ -18,7 +18,7 @@ console.log('MONGODB_URI', mongoUrl)
 const establishConnection = async () => {
     try{
         await mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true })
-        logger.info('MongoDB connecte')
+        logger.info('MongoDB connected')
     }
     catch{
         logger.error('MongoDB connection failed')
