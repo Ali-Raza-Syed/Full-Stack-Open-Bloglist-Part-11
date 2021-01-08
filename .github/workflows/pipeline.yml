@@ -33,14 +33,11 @@ jobs:
         run: npm run test 
 
       - name: e2e tests
-        env:
-          CYPRESS_PORT: ${{secrets.PORT}}
-          CYPRESS_TEST_MONGODB_URI: ${{secrets.TEST_MONGODB_URI}}
-          CYPRESS_SECRET: ${{secrets.SECRET}}
         uses: cypress-io/github-action@v2
         with:
           command: npm run test:e2e
           start: npm run start
+          env: PORT=${{secrets.PORT}},TEST_MONGODB_URI=${{secrets.TEST_MONGODB_URI}},SECRET=${{secrets.SECRET}}
 
       - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
         env:
