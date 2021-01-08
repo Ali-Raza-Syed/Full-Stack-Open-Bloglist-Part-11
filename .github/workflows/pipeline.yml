@@ -21,62 +21,62 @@ jobs:
       - name: npm install backend and frontend
         run: npm install && cd frontend && npm install
 
-      - name: lint
-        run: npm run eslint
+      # - name: lint
+      #   run: npm run eslint
 
-      - name: test
-        env:
-          PORT: ${{secrets.PORT}}
-          TEST_MONGODB_URI: ${{secrets.TEST_MONGODB_URI}}
-          SECRET: ${{secrets.SECRET}}
-          SKIP_PREFLIGHT_CHECK: true
-        run: npm run test 
-
-      # - name: e2e tests
-      #   uses: cypress-io/github-action@v2
+      # - name: test
       #   env:
       #     PORT: ${{secrets.PORT}}
       #     TEST_MONGODB_URI: ${{secrets.TEST_MONGODB_URI}}
-      #     MONGODB_URI: ${{secrets.MONGODB_URI}}
       #     SECRET: ${{secrets.SECRET}}
       #     SKIP_PREFLIGHT_CHECK: true
-      #     NODE_ENV: 'test'
+      #   run: npm run test 
+
+      - name: e2e tests
+        uses: cypress-io/github-action@v2
+        env:
+          PORT: ${{secrets.PORT}}
+          TEST_MONGODB_URI: ${{secrets.TEST_MONGODB_URI}}
+          MONGODB_URI: ${{secrets.MONGODB_URI}}
+          SECRET: ${{secrets.SECRET}}
+          SKIP_PREFLIGHT_CHECK: true
+          NODE_ENV: 'test'
+        with:
+          command: npm run test:e2e
+          start: npm run start:test
+          wait-on: 'http://localhost:3001'
+
+      # - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
+      #   env:
+      #     SKIP: ${{ contains( join( github.event.commits.*.message, ',' ), '#skip' ) }}
+      #   if: ${{ github.event_name == 'push' && env.SKIP == 'false' }}
       #   with:
-      #     command: npm run test:e2e
-      #     start: npm run start:test
-      #     wait-on: 'http://localhost:3001'
+      #     heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+      #     heroku_app_name: "bloglist-last-part-ali-raza" #Must be unique in Heroku
+      #     heroku_email: "saliraza486@gmail.com"
+      #     healthcheck: "https://bloglist-last-part-ali-raza.herokuapp.com/health"
+      #     checkstring: "ok"
+      #     rollbackonhealthcheckfailed: true
 
-      - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
-        env:
-          SKIP: ${{ contains( join( github.event.commits.*.message, ',' ), '#skip' ) }}
-        if: ${{ github.event_name == 'push' && env.SKIP == 'false' }}
-        with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "bloglist-last-part-ali-raza" #Must be unique in Heroku
-          heroku_email: "saliraza486@gmail.com"
-          healthcheck: "https://bloglist-last-part-ali-raza.herokuapp.com/health"
-          checkstring: "ok"
-          rollbackonhealthcheckfailed: true
+      # - uses: actions/checkout@v2
+      #   if: ${{ github.event_name == 'push' }}
 
-      - uses: actions/checkout@v2
-        if: ${{ github.event_name == 'push' }}
+      # - name: Bump version and push tag (main merge)
+      #   if: ${{ github.event_name == 'push' && env.SKIP == 'false' }}
+      #   uses: anothrNick/github-tag-action@1.33.0
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #     DEFAULT_BUMP: patch
+      #     SKIP: ${{ contains( join( github.event.commits.*.message, ',' ), '#skip' ) }}
+      #     RELEASE_BRANCHES: main
 
-      - name: Bump version and push tag (main merge)
-        if: ${{ github.event_name == 'push' && env.SKIP == 'false' }}
-        uses: anothrNick/github-tag-action@1.33.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DEFAULT_BUMP: patch
-          SKIP: ${{ contains( join( github.event.commits.*.message, ',' ), '#skip' ) }}
-          RELEASE_BRANCHES: main
-
-      - uses: 8398a7/action-slack@v3
-        if: ${{ github.event_name == 'push' && ( success() || failure() ) }}
-        with:
-          status: ${{ job.status }}
-          fields: message,commit,action,eventName,ref,workflow,job,took # selectable (default: repo,message)        
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
+      # - uses: 8398a7/action-slack@v3
+      #   if: ${{ github.event_name == 'push' && ( success() || failure() ) }}
+      #   with:
+      #     status: ${{ job.status }}
+      #     fields: message,commit,action,eventName,ref,workflow,job,took # selectable (default: repo,message)        
+      #   env:
+      #     SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }} # required
 
 
 
