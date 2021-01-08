@@ -37,7 +37,6 @@ jobs:
         env:
           PORT: ${{secrets.PORT}}
           TEST_MONGODB_URI: ${{secrets.TEST_MONGODB_URI}}
-          MONGODB_URI: ${{secrets.MONGODB_URI}}
           SECRET: ${{secrets.SECRET}}
           SKIP_PREFLIGHT_CHECK: true
           NODE_ENV: 'test'
