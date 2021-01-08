@@ -35,7 +35,7 @@ jobs:
       - name: e2e tests
         uses: cypress-io/github-action@v2
         env:
-          PORT: ${{secrets.PORT}}
+          PORT: 3001
           TEST_MONGODB_URI: ${{secrets.TEST_MONGODB_URI}}
           SECRET: ${{secrets.SECRET}}
           SKIP_PREFLIGHT_CHECK: true
