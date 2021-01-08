@@ -43,7 +43,7 @@ jobs:
           NODE_ENV: 'test'
         with:
           command: npm run test:e2e
-          start: npm run start
+          start: npm run start:test
 
       - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
         env:
