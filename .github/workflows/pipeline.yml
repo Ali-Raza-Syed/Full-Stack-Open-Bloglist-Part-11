@@ -37,7 +37,7 @@ jobs:
         with:
           command: npm run test:e2e
           start: npm run start
-          env: PORT=${{secrets.PORT}},TEST_MONGODB_URI=${{secrets.TEST_MONGODB_URI}},SECRET=${{secrets.SECRET}}
+          env: PORT=3001,TEST_MONGODB_URI=mongodb+srv://admin:admin@full-stack-open.5s2rd.mongodb.net/bloglist-app-test?retryWrites=true&w=majority,SECRET=achoo
 
       - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
         env:
