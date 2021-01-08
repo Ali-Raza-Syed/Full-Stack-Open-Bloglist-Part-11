@@ -61,7 +61,7 @@ jobs:
       - uses: actions/checkout@v2
         if: ${{ github.event_name == 'push' }}
 
-      - name: Bump version and push tag (master merge)
+      - name: Bump version and push tag (main merge)
         if: ${{ github.event_name == 'push' && env.SKIP == 'false' }}
         uses: anothrNick/github-tag-action@1.33.0
         env:
