@@ -68,6 +68,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEFAULT_BUMP: patch
           SKIP: ${{ contains( join( github.event.commits.*.message, ',' ), '#skip' ) }}
+          RELEASE_BRANCHES: main
 
       - uses: 8398a7/action-slack@v3
         if: ${{ github.event_name == 'push' && ( success() || failure() ) }}
