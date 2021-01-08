@@ -36,7 +36,7 @@ jobs:
         uses: cypress-io/github-action@v2
         env:
           PORT: 3001
-          TEST_MONGODB_URI: ${{secrets.TEST_MONGODB_URI}}
+          TEST_MONGODB_URI: mongodb+srv://admin:admin@full-stack-open.5s2rd.mongodb.net/bloglist-app-test?retryWrites=true&w=majority
           SECRET: ${{secrets.SECRET}}
           SKIP_PREFLIGHT_CHECK: true
           NODE_ENV: 'test'
