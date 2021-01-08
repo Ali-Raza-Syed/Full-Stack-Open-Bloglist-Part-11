@@ -39,7 +39,7 @@ jobs:
         uses: cypress-io/github-action@v2
         with:
           command: npm run test:e2e
-          start: npm run start
+          start: TEST_MONGODB_URI=$TEST_MONGODB_URI npm run start
 
       - uses: akhileshns/heroku-deploy@v3.8.8 # This is the action
         env:
